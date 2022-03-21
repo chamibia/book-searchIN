@@ -51,16 +51,9 @@ const resolvers = {
     //args is coming from typeDefs and context is coming from the signin user
     saveBook: async (parent, args, context) => {
       const book = await User.findByIdAndUpdate(context.user._id, {
-        savedBooks: {
-          $push: {
-            authors: args.authors,
-            description: args.description,
-            title: args.title,
-            bookId: args.bookId,
-            image: args.image,
-            link: args.link,
-          },
-        },
+        $push: {
+          savedBooks: args
+        }
       });
 
       return book;
