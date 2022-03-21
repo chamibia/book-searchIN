@@ -29,7 +29,7 @@ type Auth {
 type Query {
   me: User
   users: [User]
-  user: User
+  user(email: String!): User
 }
 
 type Mutation {
