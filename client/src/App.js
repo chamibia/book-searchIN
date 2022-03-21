@@ -4,8 +4,12 @@ import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 import { setContext } from 'apollo-link-context';
-import {ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
+import {ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
 
+
+const httpLink = createHttpLink({
+  uri: "/graphql",
+});
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
@@ -16,13 +20,9 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
-const link = new HttpLink({
-  uri: "http://localhost:4000/graphql"
-  // Additional options
-});
 
 const client = new ApolloClient({
-  link: authLink.concat(link),
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
