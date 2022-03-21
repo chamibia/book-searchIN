@@ -5,7 +5,7 @@ import { removeBookId } from '../utils/localStorage';
 
 //graphql
 import {useQuery, useMutation} from "@apollo/client";
-import {removeBook} from "../utils/queries";
+import {removeBook} from "../utils/mutations";
 import { QUERY_ME_BASIC } from '../utils/queries'; 
 
 const SavedBooks = () => {
