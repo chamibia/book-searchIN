@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_ME_BASIC = gql`
   {
@@ -7,7 +7,14 @@ export const QUERY_ME_BASIC = gql`
       username
       email
       bookCount
-      savedBooks
+      savedBooks {
+        _id
+        authors
+        description
+        title
+        image
+        link
+      }
     }
   }
 `;

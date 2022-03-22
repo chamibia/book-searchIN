@@ -14,7 +14,7 @@ type User {
 
 type Book {
   _id: ID
-  authors: String
+  authors: [String]
   description: String
   title: String
   image: String
