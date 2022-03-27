@@ -58,17 +58,28 @@ const resolvers = {
 
       return book;
     },
-    removeBook: async (parent, {bookId}, context) => {
-      console.log("do we have a book id", args.bookId);
-      const removed = await User.findOneAndUpdate({ _id: context.user._id }, {
-        $pull: {
-          savedBooks: args.bookId
+    removeBook: async (parent, { bookId }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+
+        if (user) {
+
+          const updatedBooks = user.savedBooks.filter(book => {
+            if (book._id && book._id == bookId) {
+              return false
+            }
+            return true
+          });
+
+            await User.findOneAndUpdate(
+              {_id: context.user._id},
+              {savedBooks: updatedBooks}
+            );
         }
-      }, { new: true });
-      console.log(removed.bookCount);
-      return removed;
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
-};
+}
 
 module.exports = resolvers;
